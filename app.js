@@ -13,24 +13,35 @@ class App extends Component {
   getProducts() {
     const productsListContainer = document.getElementById('lpBloc');
     console.log(productsListContainer);
-  }
+	}
+	renderProducts() {
+		return this.props.products.map(product => {
+			return (
+				<div>
+					<h5>product.name</h5>
+					<img src={product.productImage}></img>
+				</div>
+			)
+		})
+	}
   render() {
     return (
       <div>
         <h1>App working</h1>
-        <button onclick="getProducts">Test</button>
+        {this.renderProducts}
       </div>
     );
   }
 }
 window.addEventListener('load', function () {
   chrome.extension.getBackgroundPage().console.log('Loaded');
-  // getting the products list container (ul tag)
-  const productsListContainer = document.getElementById('lpBloc');
-  chrome.extension.getBackgroundPage().console.log(productsListContainer);
-  app();
+	chrome.runtime.onMessage.addListener(function (message) {
+		if (message.type === 'PRODUCTS') {
+			app(products);
+		}
+	});
 });
 
-const app = () => {
-  ReactDOM.render(<App />, document.getElementById('root'));
+const app = (products) => {
+  ReactDOM.render(<App products={products} />, document.getElementById('root'));
 };
