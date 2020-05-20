@@ -1,4 +1,4 @@
-//start connection in content script
+// start connection in content script
 let contentPort = chrome.runtime.connect({
   name: 'background-content',
 });

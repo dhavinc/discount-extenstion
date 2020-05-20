@@ -2,10 +2,10 @@
   "name": "Getting Started Example",
   "version": "1.0",
   "description": "Build an Extension!",
-  "permissions": ["webNavigation", "activeTab", "declarativeContent", "https://www.cdiscount.com/"],
+  "permissions": ["storage", "webNavigation", "activeTab", "declarativeContent", "https://www.cdiscount.com/"],
   "options_page": "options.html",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["background.js", "app.js"],
     "persistent": false
   },
   "content_scripts": [{

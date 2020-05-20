@@ -18,6 +18,8 @@ chrome.runtime.onInstalled.addListener(function () {
     ]);
   });
 });
+
+
 let contentPort;
 chrome.runtime.onConnect.addListener(function (portFrom) {
   chrome.extension.getBackgroundPage().console.log('connected');
@@ -29,18 +31,12 @@ chrome.runtime.onConnect.addListener(function (portFrom) {
     });
   });
   if (portFrom.name === 'background-content') {
-    //This is how you add listener to a port.
     portFrom.onMessage.addListener(function (message) {
       // get products
       chrome.extension
         .getBackgroundPage()
         .console.log('message arrives', message);
+      chrome.storage.local.set({ products: message.payload });
     });
   }
 });
-
-//Send a message to a tab which has your content script injected.
-//You should able to use postMessage here as well.
-// chrome.webNavigation.onCompleted.addListener(function() {
-
-// })
